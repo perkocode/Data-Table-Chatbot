@@ -1,0 +1,53 @@
+Row ID: A unique index or row number for each record.
+
+Order ID: A unique identifier for each individual order.
+
+Order Date: The date the order was placed by the customer.
+
+Ship Date: The date the order was shipped from the warehouse.
+
+Ship Mode: The method of shipping selected for the order (e.g., Standard Class, First Class, Second Class, Same Day).
+
+Customer ID: A unique identifier for each customer.
+
+Customer Name: The full name of the customer who placed the order.
+
+Segment: The market segment the customer belongs to (e.g., Consumer, Corporate, Home Office).
+
+Country: The country where the customer is located.
+
+City: The city where the customer is located.
+
+State: The state or province where the customer is located.
+
+Postal Code: The postal or ZIP code for the customer’s location.
+
+Region: The broader geographical region where the customer is located (e.g., East, West, Central, South).
+
+Product ID: A unique identifier for each product in the catalog.
+
+Category: The high-level product category (e.g., Furniture, Office Supplies, Technology).
+
+Sub-Category: A more specific classification within a category (e.g., Chairs, Phones, Binders).
+
+Product Name: The name or title of the product.
+
+Sales: The total revenue from the sale of the product (calculated as Quantity × Unit Price minus Discount).
+
+Quantity: The number of units sold in the transaction.
+
+Discount: The percentage discount applied to the sale (e.g., 0.2 represents 20% off).
+
+Profit: The profit generated from the transaction (Sales minus Cost).
+
+Shipping Cost: The cost incurred to ship the order.
+
+Order Priority: The level of urgency for fulfilling the order (e.g., Low, Medium, High, Critical).
+
+Market: The sales market or region in which the order was placed (e.g., APAC, EU, US).
+
+Customer Segment: Alternate labeling for "Segment" (some versions include both fields).
+
+Year: The year extracted from the order date (used for time series analysis).
+
+Month: The month extracted from the order date (used for trend analysis).

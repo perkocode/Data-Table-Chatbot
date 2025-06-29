@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: superstore-chatbot
+    env: python
+    plan: free
+    # Optional: change to "starter" or higher for always‑on
+    runtime: python
+    region: oregon
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+    startCommand: |
+      gunicorn app:app --workers 1 --bind 0.0.0.0:$PORT
+    buildFilter:
+      paths:
+        # Re‑build when these change
+        - app.py
+        - query_engine.py
+        - rag_engine.py
+        - templates/**
+        - static/style.css
+        - requirements.txt
+        - render.yaml
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false          # add via Render dashboard
+      - key: FLASK_SECRET_KEY
+        sync: false          # add via dashboard (any random string)
+      - key: PYTHON_VERSION
+        value: "3.10"
+    autoDeploy: true

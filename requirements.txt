@@ -5,15 +5,11 @@ matplotlib==3.8.4
 squarify==0.4.3
 python-dotenv==1.0.1
 openai==1.26.0
-tiktoken==0.6.0
-
-# LangChain + vector DB for RAG
-langchain==0.2.6
-langchain-community==0.2.6
-chromadb==0.5.0
-fastapi==0.111.0     # chroma dependency
-uvicorn==0.29.0      # chroma dependency
-
-# Optional: rate‑limiter & CORS
+tiktoken==0.5.1          # no Rust build step
+langchain==0.1.19        # last version before new chromadb pin
+langchain-community==0.0.32
+chromadb==0.4.24         # wheels available
+fastapi==0.110.3
+uvicorn==0.29.0
 Flask-Limiter==3.5.1
 Flask-Cors==4.0.0

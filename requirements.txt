@@ -1,16 +1,15 @@
 Flask==3.0.2
 gunicorn==21.2.0
-pandas==2.2.2
-python==3.10
+pandas==2.3.0
 matplotlib==3.8.4
 squarify==0.4.3
 python-dotenv==1.0.1
 openai==1.26.0
 tiktoken==0.5.1          # no Rust build step
 langchain==0.1.19        # last version before new chromadb pin
-langchain-community==0.0.32
 chromadb==0.4.24         # wheels available
 fastapi==0.110.3
 uvicorn==0.29.0
 Flask-Limiter==3.5.1
 Flask-Cors==4.0.0
+numpy>=1.26,<2 

@@ -6,7 +6,8 @@ squarify==0.4.3
 python-dotenv==1.0.1
 openai==1.26.0
 tiktoken==0.2.0
-langchain==0.1.19        # last version before new chromadb pin
+langchain==0.1.24        # or the latest 0.1.x; ≥0.1.21 is OK
+langchain-core==0.2.3    # explicit but optional; pulled in automatically
 chromadb==0.4.24         # wheels available
 fastapi==0.110.3
 uvicorn==0.29.0

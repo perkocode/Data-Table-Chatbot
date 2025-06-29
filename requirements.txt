@@ -1,6 +1,7 @@
 Flask==3.0.2
 gunicorn==21.2.0
 pandas==2.2.2
+python==3.10
 matplotlib==3.8.4
 squarify==0.4.3
 python-dotenv==1.0.1

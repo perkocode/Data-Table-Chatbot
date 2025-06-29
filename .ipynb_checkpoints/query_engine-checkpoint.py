@@ -33,7 +33,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 matplotlib.use('Agg')
-loader = TextLoader("docs/tableau_superstore_data_dictionary.txt")
+loader = TextLoader("docs/tableau_superstore_data_dictionary.txt", encoding="utf-8")
 
 try:
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))

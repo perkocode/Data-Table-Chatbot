@@ -5,11 +5,9 @@ from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQA
-from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage
 from langchain.globals import set_llm_cache
 from langchain_community.cache import InMemoryCache
-
 
 import os
 

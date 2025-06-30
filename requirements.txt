@@ -1,17 +1,31 @@
-Flask==3.0.2
-gunicorn==21.2.0
+# ---------- core scientific stack ----------
+pydantic>=2,<3
+numpy>=1.26,<2
 pandas==2.3.0
 matplotlib==3.8.4
 squarify==0.4.3
-python-dotenv==1.0.1
-openai>=1.24,<2
-tiktoken==0.2.0
-langchain>=0.2,<0.4        # stay on 0.2/0.3, avoid future breaking 0.4+
-langchain-core==0.2.3      # matches the meta’s core
-langchain-community==0.2.3 # <— NEW line, same minor as core
-chromadb==0.4.24         # wheels available
-fastapi==0.110.3
-uvicorn==0.29.0
+
+# ---------- Flask web app ----------
+Flask==3.0.2
 Flask-Limiter==3.5.1
 Flask-Cors==4.0.0
-numpy>=1.26,<2 
+gunicorn==21.2.0
+
+# ---------- OpenAI & LangChain ----------
+openai>=1.24,<2
+
+# tiktoken 0.8.x is latest; any >=0.7,<1 satisfies langchain‑openai
+tiktoken>=0.7,<1
+
+langchain-community==0.3.26
+langchain-openai==0.2.14        # latest stable 0.2.x
+# (no langchain-core line; pip will pull the matching >=0.3.66,<1.0)
+
+
+
+# ---------- Vector store ----------
+chromadb==0.4.24
+
+# ---------- Optional FastAPI stack ----------
+fastapi==0.110.3
+uvicorn==0.29.0

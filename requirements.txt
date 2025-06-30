@@ -20,7 +20,7 @@ tiktoken>=0.7,<1
 langchain-community==0.3.26
 langchain-openai==0.2.14        # latest stable 0.2.x
 # (no langchain-core line; pip will pull the matching >=0.3.66,<1.0)
-
+unstructured[txt]~=0.13.6
 
 
 # ---------- Vector store ----------

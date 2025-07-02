@@ -1,1 +1,4 @@
 .env
+
+# Ignore virtual‑env
+venv/

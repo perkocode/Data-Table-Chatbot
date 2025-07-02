@@ -9,6 +9,9 @@ from rag_engine import setup_rag_chain
 import os
 import random
 #import logging
+from dotenv import load_dotenv
+
+load_dotenv()  # this reads .env in the current working directory
 
 qa_chain = setup_rag_chain()
 
@@ -30,6 +33,9 @@ app = Flask(__name__)
 app.config['RANDOM_CACHE_BUSTER'] = str(random.randint(0, 999999))
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "your-default-dev-secret")
 app.permanent_session_lifetime = timedelta(minutes=30)
+
+# 2. Payload size cap (8 KB)
+app.config["MAX_CONTENT_LENGTH"] = 8 * 1024  # bytes
 
 # Load data once
 df = pd.read_csv("data/global_superstore.csv", encoding='ISO-8859-1')
@@ -77,6 +83,7 @@ def index():
 
             # Use one or the other, not both:
             # response_text, is_chart, chart_filename, chart_path, data_path, code_path = handle_query_with_history(messages, df)
+            sanitize_prompt(request.form["query"])
             result, is_chart, chart_path = handle_query(query, df)
             print("Back in app.py")
             print("result: ", result)

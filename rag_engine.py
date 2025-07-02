@@ -1,5 +1,4 @@
-from langchain_community.document_loaders import TextLoader
-from langchain_community.document_loaders import DirectoryLoader
+from langchain_community.document_loaders import DirectoryLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import OpenAIEmbeddings
@@ -15,7 +14,13 @@ def setup_rag_chain():
     # Step 1: Set the cache
     set_llm_cache(InMemoryCache())
 
-    loader = DirectoryLoader("docs", glob="**/*.txt")
+    #loader = DirectoryLoader("docs", glob="**/*.txt")
+    loader = DirectoryLoader(
+    "docs",
+    glob="**/*.txt",
+    loader_cls=TextLoader,                 # <-- CRITICAL
+    loader_kwargs={"encoding": "utf-8"},   # <-- CRITICAL
+    )
     documents = loader.load()
 
     splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)

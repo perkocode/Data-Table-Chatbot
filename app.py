@@ -1,8 +1,12 @@
 from flask import Flask, request, render_template, send_file, session, redirect, url_for
+# 1. Flask-Limiter (per IP)
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 import pandas as pd
 from query_engine import handle_query
 from query_engine import handle_query_with_history
 from query_engine import build_system_prompt
+from query_engine import sanitize_prompt
 from datetime import datetime
 from datetime import timedelta
 from rag_engine import setup_rag_chain
@@ -29,6 +33,11 @@ print("print() works")
 
 app = Flask(__name__)
 
+limiter = Limiter(
+    key_func=get_remote_address,
+    default_limits=["100/hour"]
+)
+limiter.init_app(app)
 
 app.config['RANDOM_CACHE_BUSTER'] = str(random.randint(0, 999999))
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "your-default-dev-secret")

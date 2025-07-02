@@ -85,6 +85,15 @@ def prompt_gpt(query: str, df_columns: list) -> str:
     return response.choices[0].message.content
     #response["choices"][0]["message"]["content"] #response.choices[0].message.content
 
+# 3. Simple length + regex reject
+def sanitize_prompt(text: str) -> str:
+    if len(text) > 500:
+        raise ValueError("Prompt too long.")
+    banned = ["DROP TABLE", "sudo rm", "```"]
+    if any(b in text.upper() for b in banned):
+        raise ValueError("Disallowed content.")
+    return " ".join(text.split())  # collapse whitespace
+    
 def handle_query(query, df):
     try:
         chart_filename = chart_path = data_path = code_path = None
@@ -331,3 +340,5 @@ def handle_query_with_history(messages, df):
     except Exception as e:
         traceback.print_exc()
         return f"Error: {str(e)}", False, None #, None, None, None
+
+

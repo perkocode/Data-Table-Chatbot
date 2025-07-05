@@ -6,113 +6,127 @@
   <title>Superstore Chatbot</title>
   <style>
     body {
-      font-family: "Segoe UI", sans-serif;
-      margin: 0;
-      padding: 1rem;
-      background-color: #f8f9fa;
-      color: #212529;
-    }
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 1rem;
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    }
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
 
-    h2 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+}
 
-    form {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
+form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
 
-    input[type="text"] {
-      flex: 1 1 60%;
-      padding: 0.6rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
+input[type="text"] {
+  flex: 1;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
 
-    input[type="submit"], button {
-      padding: 0.6rem 1rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      background-color: #007bff;
-      color: white;
-      cursor: pointer;
-    }
+input[type="submit"],
+button {
+  padding: 12px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
 
-    button:hover, input[type="submit"]:hover {
-      background-color: #0056b3;
-    }
+button:hover,
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}
 
-    pre {
-      background: #f1f1f1;
-      padding: 1rem;
-      overflow-x: auto;
-      border-radius: 6px;
-    }
+pre {
+  background-color: #f1f1f1;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
 
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 1rem auto;
-    }
+img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 
-    a {
-      color: #007bff;
-      text-decoration: none;
-    }
+.download-links {
+  margin-top: 15px;
+}
 
-    a:hover {
-      text-decoration: underline;
-    }
+.download-links a {
+  display: inline-block;
+  margin-right: 15px;
+  color: #007bff;
+  text-decoration: none;
+}
 
-    .download-buttons {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
+.download-links a:hover {
+  text-decoration: underline;
+}
 
-    .chat-history {
-      margin-top: 2rem;
-      border-top: 1px solid #ddd;
-      padding-top: 1rem;
-    }
+.chat-history {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid #ddd;
+}
 
-    @media (max-width: 600px) {
-      input[type="text"] {
-        flex: 1 1 100%;
-      }
-
-      form {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      input[type="submit"], button {
-        width: 100%;
-      }
-    }
+.chat-history p {
+  margin: 4px 0;
+}
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>Ask the Superstore Bot</h2>
+      <h1>
+        <i class="fa-solid fa-chart-column icon"></i>
+        Ask the Superstore Bot
+        <span role="img" aria-label="cool-face">✨📊😎</span>
+      </h1>
+
+      <p class="description">
+        This application provides a user‑friendly interface for data exploration and visualization on the
+        <strong><a href = 'https://www.kaggle.com/datasets/vivek468/superstore-dataset-final'>Tableau Superstore</a></strong> data set, enabling quick insights and analysis without
+        requiring specialized data skills.
+      </p>
+
+      <div style="margin: 0 auto; max-width: 800px; padding: 12px; background:#f1f8ff; border:1px solid #cfe2ff; border-radius:8px;">
+          <strong>💡 Try asking:</strong>
+          <ul style="margin-top:6px; margin-bottom:0; padding-left:22px;">
+            <li>“What fields do I have access to?”</li>
+            <li>“Show total sales by region”</li>
+            <li>“Trend of Copiers sales by year”</li>
+            <li>“Top 10 products by profit”</li>
+            <li>“Average discount for Corporate segment”</li>
+            <li>“What does the Order Priority field mean?”</li>
+            <li>“How do I create a profit ratio metric based on documentation?”</li>
+          </ul>
+        </div>
+      <br />
     <form method="post">
       <input type="text" name="query" placeholder="e.g., Show total sales by region" />
       <input type="submit" value="Ask" />

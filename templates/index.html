@@ -42,7 +42,8 @@
     <div id="response"></div>
 
 
-    <script>
+
+    <script>    
         // Update hidden input with selected dataset
         $('#dataset-select').on('change', function () {
             $('#selected-dataset').val(this.value);
@@ -85,10 +86,22 @@
                 type: 'POST',
                 data: formData,
                 success: function (response) {
-                    $('#response').html(
-                        `<h3>${response.answer}</h3>` +
-                        (response.preview ? `<pre>${JSON.stringify(response.preview, null, 2)}</pre>` : '')
-                    );
+                    let html = `<h3>${response.result}</h3>`;
+
+                    if (response.chart_url) {
+                        html += `<img src="${response.chart_url}" alt="Chart" style="max-width: 100%;"><br>`;
+                        html += `<a href="${response.chart_url}" download><button type="button">Download Chart (PNG)</button></a>`;
+                    }
+
+                    if (response.chat_history) {
+                        html += `<div class="chat-history">`;
+                        response.chat_history.forEach(msg => {
+                            html += `<p><strong>${msg.role}:</strong> ${msg.content}</p>`;
+                        });
+                        html += `</div>`;
+                    }
+
+                    $('#response').html(html);
                 },
                 error: function (xhr) {
                     $('#response').html(`<p style="color: red;">${xhr.responseJSON?.error || "Error processing request."}</p>`);

@@ -93,6 +93,10 @@
                         html += `<a href="${response.chart_url}" download><button type="button">Download Chart (PNG)</button></a>`;
                     }
 
+                    if (response.data_path) {
+                        html += `<a href="${response.data_path}" download><button type="button">Download Data (CSV)</button></a>`;
+                    }
+
                     if (response.chat_history) {
                         html += `<div class="chat-history">`;
                         response.chat_history.forEach(msg => {

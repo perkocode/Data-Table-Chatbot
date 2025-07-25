@@ -184,7 +184,8 @@ def ask():
         session.permanent = True
         session.setdefault("chat_history", [])
         session.pop("chart_filename", None)
-
+        session.pop("data_filename", None)
+        
         session["chat_history"].append({"role": "user", "content": question})
         conversation = session["chat_history"][-5:]
 
@@ -193,6 +194,7 @@ def ask():
             result = qa_chain.run(question)
             chart_url = None
             is_chart = False
+            data_path = None
         else:
             columns_str = ", ".join(list(df.columns))
             messages = [{"role": "system", "content": build_system_prompt(columns_str)}]
@@ -214,6 +216,7 @@ def ask():
             "result": result,
             "chart_url": chart_url,
             "is_chart": is_chart,
+            "data_path": url_for("static", filename=session.get("data_filename")),
             "timestamp": datetime.now().timestamp(),
             "chat_history": session["chat_history"]
         })
@@ -234,6 +237,7 @@ def chart():
 def clear():
     session.pop("chat_history", None)
     session.pop("chart_filename", None)
+    session.pop("data_filename", None)
     return redirect("/")
 
 @app.route("/download/chart")

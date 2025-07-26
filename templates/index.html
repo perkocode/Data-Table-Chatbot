@@ -3,45 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <title>Superstore Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            max-width: 800px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-right: 5px;
+            margin-left: 5px;
+        }
+
+        button:hover {
+            background-color: #1a252f;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background-color: #ddd;
+            margin: 30px 0;
+        }
+
+        #response {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .chat-history p {
+            background-color: #ecf0f1;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 5px 0;
+        }
+
+        .chat-history strong {
+            color: #2c3e50;
+        }
+
+        a button {
+            margin-top: 10px;
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <h1>Superstore Chatbot</h1>
 
-    <!-- File Upload + Dataset Naming -->
-    <form id="upload-form" enctype="multipart/form-data">
-        <label for="dataset_name">Dataset Name:</label>
-        <input type="text" id="dataset_name" name="dataset_name" required>
+    <h1>📊 Superstore Chatbot</h1>
 
-        <label for="file">Upload CSV (max 50MB):</label>
-        <input type="file" id="file" name="file" accept=".csv" required>
+    <!-- Suggested Prompts -->
+    <div class="card" style="margin-top: 0; margin-bottom: 20px;">
+        <normal>This app lets you ask questions in everyday language on your data and returns charts or tables addressing the question asked.  The default data set is the famous <a href = 'https://public.tableau.com/app/learn/sample-data' target='_blank'>"Tableau Superstore" data set</a>, but you can also upload a data set of your choice and then ask questions on that data!</normal><br /><br />
+        <strong>💡 Try asking:</strong>
+        <ul style="margin-top: 6px; margin-bottom: 0; padding-left: 22px; line-height: 1.6;">
+            <li>“What fields do I have access to?”</li>
+            <li>“Show total sales by region”</li>
+            <li>“Trend of Copiers sales by year”</li>
+            <li>“Top 10 products by profit”</li>
+            <li>“Average discount for Corporate segment”</li>
+            <li>“What does the Order Priority field mean?”</li>
+            <li>“How do I create a profit ratio metric based on documentation?”</li>
+        </ul>
+    </div>
+    
+    <div class="card">
+        <form id="upload-form" enctype="multipart/form-data">
+            <h2>Upload a CSV Dataset</h2>
+            <label for="dataset_name">Dataset Name:</label>
+            <input type="text" id="dataset_name" name="dataset_name" required>
 
-        <button type="submit">Upload Dataset</button>
-    </form>
+            <label for="file">Upload CSV (max 50MB):</label>
+            <input type="file" id="file" name="file" accept=".csv" required>
 
-    <hr>
+            <button type="submit">Upload Dataset</button>
+        </form>
+    </div>
 
-    <!-- Dataset Selection Dropdown -->
-    <label for="dataset-select">Choose Dataset:</label>
-    <select id="dataset-select" name="dataset_name">
-        <option value="global_superstore">Global Superstore</option>
-    </select>
+    <div class="card">
+        <h2>Select Dataset</h2>
+        <label for="dataset-select">Choose a dataset:</label>
+        <select id="dataset-select" name="dataset_name">
+            <option value="global_superstore">Global Superstore</option>
+        </select>
+    </div>
 
-    <hr>
+    <div class="card">
+        <form id="ask-form">
+            <h2>Ask a Question</h2>
+            <label for="question">Your question:</label>
+            <textarea id="question" name="question" rows="4" required></textarea>
 
-    <!-- Question Input -->
-    <form id="ask-form">
-    <label for="question">Ask a question:</label><br>
-    <textarea id="question" name="question" rows="4" cols="50" required></textarea><br>
+            <input type="hidden" id="selected-dataset" name="dataset_name" value="global_superstore">
 
-    <input type="hidden" id="selected-dataset" name="dataset_name" value="global_superstore">
-
-    <button type="submit">Ask</button>
-    </form>
+            <button type="submit">Ask</button>
+        </form>
+    </div>
 
     <div id="response"></div>
-
-
 
     <script>    
         // Update hidden input with selected dataset
@@ -62,7 +163,7 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    console.log("Upload response:", response);  // Add this line
+                    console.log("Upload response:", response);
                     alert(response.message);
                     updateDropdown(response.datasets, response.default_dataset);
                 },
@@ -89,7 +190,7 @@
                     let html = `<h3>${response.result}</h3>`;
 
                     if (response.chart_url) {
-                        html += `<img src="${response.chart_url}" alt="Chart" style="max-width: 100%;"><br>`;
+                        html += `<img src="${response.chart_url}" alt="Chart" style="max-width: 100%; border-radius: 10px;"><br>`;
                         html += `<a href="${response.chart_url}" download><button type="button">Download Chart (PNG)</button></a>`;
                     }
 
@@ -113,7 +214,6 @@
             });
         });
 
-
         // Update dropdown with uploaded datasets
         function updateDropdown(datasets, defaultDataset) {
             if (!datasets || !Array.isArray(datasets)) {
@@ -125,17 +225,17 @@
             dropdown.innerHTML = "";
     
             datasets.forEach(function (dataset) {
-            const option = document.createElement("option");
-            option.value = dataset;
-            option.textContent = dataset;
-            if (dataset === defaultDataset) {
-                option.selected = true;
-            }
-            dropdown.appendChild(option);
+                const option = document.createElement("option");
+                option.value = dataset;
+                option.textContent = dataset;
+                if (dataset === defaultDataset) {
+                    option.selected = true;
+                }
+                dropdown.appendChild(option);
+            });
 
             // 🔑 Sync the newly selected item with the hidden input
             $(dropdown).trigger('change');
-            });
         }
     </script>
 </body>
